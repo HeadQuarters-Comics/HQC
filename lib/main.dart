@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hqc/signup.dart';
 
 void main() {
   runApp(MyApp());
@@ -76,7 +77,9 @@ class _LoggedOutState extends State<LoggedOutPage> {
               SizedBox(
                 width: 190,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(_createRoute());
+                  },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 15, horizontal: 10),
@@ -109,4 +112,22 @@ class _LoggedOutState extends State<LoggedOutPage> {
       ),
     );
   }
+}
+
+Route _createRoute() {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => SignUpPage(),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      const begin = Offset(2.0, 0.0);
+      const end = Offset.zero;
+      const curve = Curves.ease;
+
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
 }
