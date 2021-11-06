@@ -30,16 +30,51 @@ class _LoggedOutState extends State<LoggedOutPage> {
     return Scaffold(
       backgroundColor: Colors.black,
       body: Center(
-        child:
-            Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-          Container(
-              width: mediaQuery.size.width * 0.90,
-              child: Image.asset('assets/images/logo.png')),
+        child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 100),
+            child: Container(
+                width: mediaQuery.size.width * 0.90,
+                child: Image.asset('assets/images/logo.png')),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 40, left: 10),
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    width: 40,
+                    height: 40,
+                    child: CircleAvatar(
+                        radius: 45,
+                        child: ClipOval(
+                            child:
+                                Image.asset('assets/images/jwmf_freitas.jpg'))),
+                  ),
+                ),
+                Container(
+                  child: Column(
+                    children: [
+                      Text(
+                        "João V. Freitas",
+                        style: TextStyle(color: Colors.white, fontSize: 16),
+                      ),
+                      Text(
+                        "@jwmf_freitas",
+                        style: TextStyle(color: Colors.grey),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               SizedBox(
-                width: 200,
+                width: 190,
                 child: ElevatedButton(
                   onPressed: () {},
                   child: Padding(
@@ -54,7 +89,7 @@ class _LoggedOutState extends State<LoggedOutPage> {
                 ),
               ),
               SizedBox(
-                width: 200,
+                width: 190,
                 child: ElevatedButton(
                   onPressed: () {},
                   child: Padding(
