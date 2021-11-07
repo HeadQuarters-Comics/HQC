@@ -57,8 +57,8 @@ class _LoginState extends State<LoginPage> {
               ),
             ),
             Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+                padding: const EdgeInsets.only(
+                    top: 0, left: 20, right: 20, bottom: 15),
                 child: TextField(
                   onChanged: (text) {
                     password = text;
@@ -78,7 +78,7 @@ class _LoginState extends State<LoginPage> {
                 )),
             Container(
               width: mediaQuery.size.width,
-              height: mediaQuery.size.height * 0.35,
+              height: mediaQuery.size.height * 0.445,
               color: Colors.white,
               child: Column(
                 children: [
