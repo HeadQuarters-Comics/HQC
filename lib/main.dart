@@ -77,14 +77,15 @@ class _LoggedOutState extends State<LoggedOutPage> {
               SizedBox(
                 width: 190,
                 child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).push(_createRoute());
-                  },
+                  onPressed: () {},
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 15, horizontal: 10),
                     child: Text("LOGIN",
-                        style: TextStyle(color: Colors.white, fontSize: 18)),
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontFamily: 'Roboto-Black')),
                   ),
                   style: ElevatedButton.styleFrom(
                       primary: Colors.black,
@@ -94,12 +95,17 @@ class _LoggedOutState extends State<LoggedOutPage> {
               SizedBox(
                 width: 190,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(_createRoute());
+                  },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 15, horizontal: 10),
                     child: Text("CADASTRAR",
-                        style: TextStyle(color: Colors.black, fontSize: 18)),
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontFamily: 'Roboto-Black')),
                   ),
                   style: ElevatedButton.styleFrom(
                       primary: Colors.white,

@@ -18,18 +18,21 @@ class _SignUpState extends State<SignUpPage> {
         child: Center(
           child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
             Padding(
-              padding: const EdgeInsets.only(top: 50),
+              padding: const EdgeInsets.only(top: 40),
               child: Container(
                   width: mediaQuery.size.width * 0.20,
                   child: Image.asset('assets/images/miniLogo.png')),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 20, top: 30),
+              padding: const EdgeInsets.only(left: 20, top: 20, bottom: 20),
               child: Container(
                 alignment: Alignment.topLeft,
                 child: Text(
                   "Cadastro",
-                  style: TextStyle(fontSize: 40, color: Colors.white),
+                  style: TextStyle(
+                      fontSize: 40,
+                      color: Colors.white,
+                      fontFamily: 'Comfortaa'),
                 ),
               ),
             ),
@@ -116,8 +119,10 @@ class _SignUpState extends State<SignUpPage> {
                         padding: const EdgeInsets.symmetric(
                             vertical: 13, horizontal: 10),
                         child: Text("CADASTRAR",
-                            style:
-                                TextStyle(color: Colors.black, fontSize: 16)),
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 15,
+                                fontFamily: 'Roboto-Black')),
                       ),
                       style:
                           ElevatedButton.styleFrom(primary: Colors.grey[300]),
@@ -133,8 +138,10 @@ class _SignUpState extends State<SignUpPage> {
                           padding: const EdgeInsets.symmetric(
                               vertical: 13, horizontal: 10),
                           child: Text("VOLTAR",
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 16)),
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 15,
+                                  fontFamily: 'Roboto-Black')),
                         ),
                         style: ElevatedButton.styleFrom(
                             primary: Colors.white,
