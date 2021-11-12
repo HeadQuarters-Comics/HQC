@@ -49,6 +49,7 @@ flutter:
   assets:
     - assets/images/logo.png
     - assets/images/miniLogo.png
+    - assets/images/name.png
     - assets/images/jwmf_freitas.jpg
   #   - images/a_dot_ham.jpeg
 

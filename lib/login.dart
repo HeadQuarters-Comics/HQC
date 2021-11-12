@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hqc/home.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
@@ -23,7 +24,9 @@ class _LoginState extends State<LoginPage> {
             <String, String>{'username': username, 'password': password}));
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
-    if (response.statusCode == 403) {
+    if (response.statusCode == 200) {
+      Navigator.of(context).push(_createRoute());
+    } else if (response.statusCode == 403) {
       errorMessage('A senha não tá batendo ;-;',
           'Verifique sua senha e tente novamente.');
     } else if (response.statusCode == 404) {
@@ -192,16 +195,10 @@ class _LoginState extends State<LoginPage> {
 
 Route _createRoute() {
   return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) => LoginPage(),
+    pageBuilder: (context, animation, secondaryAnimation) => HomePage(),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      const begin = Offset(2.0, 0.0);
-      const end = Offset.zero;
-      const curve = Curves.ease;
-
-      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-      return SlideTransition(
-        position: animation.drive(tween),
+      return FadeTransition(
+        opacity: animation,
         child: child,
       );
     },
