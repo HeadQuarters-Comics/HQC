@@ -3,6 +3,8 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 
+import 'login.dart';
+
 class SignUpPage extends StatefulWidget {
   @override
   _SignUpState createState() => _SignUpState();
@@ -25,7 +27,9 @@ class _SignUpState extends State<SignUpPage> {
               <String, String>{'username': username, 'password': password}));
       print('Response status: ${response.statusCode}');
       print('Response body: ${response.body}');
-      if (response.statusCode == 409) {
+      if (response.statusCode == 200) {
+        Navigator.of(context).push(_createRoute());
+      } else if (response.statusCode == 409) {
         errorMessage('Eita, alguém já se cadastrou com esse nome ;-;',
             'Escolha um nome mais legal ainda e manda de novo.');
       } else if (response.statusCode == 500) {
@@ -184,7 +188,9 @@ class _SignUpState extends State<SignUpPage> {
                     child: SizedBox(
                       width: mediaQuery.size.width * 0.90,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                               vertical: 13, horizontal: 10),
@@ -214,4 +220,22 @@ class _SignUpState extends State<SignUpPage> {
       ),
     );
   }
+}
+
+Route _createRoute() {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => LoginPage(),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      const begin = Offset(2.0, 0.0);
+      const end = Offset.zero;
+      const curve = Curves.ease;
+
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
 }

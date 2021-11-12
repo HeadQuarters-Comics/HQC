@@ -124,8 +124,6 @@ class _LoggedOutState extends State<LoggedOutPage> {
 }
 
 Route _createRoute(dynamic button) {
-  //Widget page = SignUpPage();
-
   switch (button) {
     case 'signup':
       return PageRouteBuilder(
