@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
 
 class SignUpPage extends StatefulWidget {
   @override
@@ -7,6 +10,25 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpState extends State<SignUpPage> {
   String username = '';
+  String password = '';
+  String confirmPass = '';
+
+  createUser() async {
+    var url = Uri.parse('http://192.168.1.56:5000/api/register');
+    print(username);
+    if (password == confirmPass) {
+      var response = await http.post(url,
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(
+              <String, String>{'username': username, 'password': password}));
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+    } else {
+      print('Senhas não coincidem');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +82,7 @@ class _SignUpState extends State<SignUpPage> {
                     const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
                 child: TextField(
                   onChanged: (text) {
-                    username = text;
+                    password = text;
                   },
                   keyboardType: TextInputType.text,
                   obscureText: true,
@@ -80,7 +102,7 @@ class _SignUpState extends State<SignUpPage> {
                     const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                 child: TextField(
                   onChanged: (text) {
-                    username = text;
+                    confirmPass = text;
                   },
                   keyboardType: TextInputType.text,
                   obscureText: true,
@@ -114,7 +136,9 @@ class _SignUpState extends State<SignUpPage> {
                       ],
                     ),
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        createUser();
+                      },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                             vertical: 13, horizontal: 10),
