@@ -14,7 +14,7 @@ class _SignUpState extends State<SignUpPage> {
   String confirmPass = '';
 
   createUser() async {
-    var url = Uri.parse('http://192.168.1.56:5000/api/register');
+    var url = Uri.parse('http://ip:5000/api/register');
     print(username);
     if (password == confirmPass) {
       var response = await http.post(url,
@@ -25,9 +25,37 @@ class _SignUpState extends State<SignUpPage> {
               <String, String>{'username': username, 'password': password}));
       print('Response status: ${response.statusCode}');
       print('Response body: ${response.body}');
+      if (response.statusCode == 500) {
+        errorMessage(
+            'Não conheço esse erro º-º', 'Tente novamente mais tarde..');
+      }
+      if (response.statusCode == 409) {
+        errorMessage('Eita, alguém já se cadastrou com esse nome ;-;',
+            'Escolha um nome mais legal ainda e manda de novo.');
+      }
     } else {
       print('Senhas não coincidem');
+      errorMessage('Poxa, suas senhas não coincidem :(',
+          'Verifique as senhas e tente novamente');
     }
+  }
+
+  errorMessage(title, description) {
+    return (showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: Text(title,
+            style: TextStyle(
+                color: Colors.black, fontSize: 20, fontFamily: 'Roboto-Black')),
+        content: Text(description),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.pop(context, 'OK'),
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    ));
   }
 
   @override
