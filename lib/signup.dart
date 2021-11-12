@@ -25,13 +25,12 @@ class _SignUpState extends State<SignUpPage> {
               <String, String>{'username': username, 'password': password}));
       print('Response status: ${response.statusCode}');
       print('Response body: ${response.body}');
-      if (response.statusCode == 500) {
-        errorMessage(
-            'Não conheço esse erro º-º', 'Tente novamente mais tarde..');
-      }
       if (response.statusCode == 409) {
         errorMessage('Eita, alguém já se cadastrou com esse nome ;-;',
             'Escolha um nome mais legal ainda e manda de novo.');
+      } else if (response.statusCode == 500) {
+        errorMessage(
+            'Não conheço esse erro º-º', 'Tente novamente mais tarde..');
       }
     } else {
       print('Senhas não coincidem');

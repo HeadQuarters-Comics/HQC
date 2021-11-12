@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -8,6 +11,49 @@ class LoginPage extends StatefulWidget {
 class _LoginState extends State<LoginPage> {
   String username = '';
   String password = '';
+
+  login() async {
+    var url = Uri.parse('http://ip:5000/api/login');
+    print(username);
+    var response = await http.post(url,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(
+            <String, String>{'username': username, 'password': password}));
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+    if (response.statusCode == 403) {
+      errorMessage('A senha não tá batendo ;-;',
+          'Verifique sua senha e tente novamente.');
+    } else if (response.statusCode == 404) {
+      errorMessage('Tem certeza que já se cadastrou?',
+          'Não encontramos esse usuário, verifique seus dados.');
+    } else if (response.statusCode == 200) {
+      print('Sucesso!');
+    } else {
+      print('Senhas não coincidem');
+      errorMessage('Não conheço esse erro º-º', 'Tente novamente mais tarde.');
+    }
+  }
+
+  errorMessage(title, description) {
+    return (showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: Text(title,
+            style: TextStyle(
+                color: Colors.black, fontSize: 20, fontFamily: 'Roboto-Black')),
+        content: Text(description),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.pop(context, 'OK'),
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +141,9 @@ class _LoginState extends State<LoginPage> {
                       ],
                     ),
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        login();
+                      },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                             vertical: 13, horizontal: 10),
