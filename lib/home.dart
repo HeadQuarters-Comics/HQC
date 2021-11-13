@@ -49,7 +49,7 @@ class _HomeState extends State<HomePage> {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 10),
+              padding: const EdgeInsets.only(left: 10, bottom: 30),
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
@@ -61,11 +61,11 @@ class _HomeState extends State<HomePage> {
                           Container(
                             decoration: BoxDecoration(boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.25),
+                                color: Colors.black.withOpacity(0.30),
                                 spreadRadius: 0,
-                                blurRadius: 5,
+                                blurRadius: 10,
                                 offset:
-                                    Offset(0, 4), // changes position of shadow
+                                    Offset(-3, 4), // changes position of shadow
                               ),
                             ]),
                             width: 170,
@@ -81,9 +81,9 @@ class _HomeState extends State<HomePage> {
                             padding: const EdgeInsets.only(top: 8),
                             child: Text("HQ de teste VOL. 45",
                                 style: TextStyle(
-                                  color: Colors.black.withOpacity(0.5),
-                                  fontSize: 16,
-                                )),
+                                    color: Colors.black.withOpacity(0.5),
+                                    fontSize: 17,
+                                    fontFamily: 'ComicNeue-Bold')),
                           )
                         ],
                       ),
@@ -92,6 +92,75 @@ class _HomeState extends State<HomePage> {
                 ),
               ),
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Container(
+                    height: 2.0,
+                    width: 70.0,
+                    color: Colors.black,
+                  ),
+                ),
+                Text("SUGESTÕES PARA VOCÊ",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 19,
+                        fontFamily: 'Roboto-Black')),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Container(
+                    height: 2.0,
+                    width: 70.0,
+                    color: Colors.black,
+                  ),
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 10, left: 15),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(
+                                      color: Colors.black, width: 1))),
+                          child: Text("DC COMICS",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 15,
+                                  fontFamily: 'Roboto-Black')),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(
+                                      color: Colors.white, width: 1))),
+                          child: Text("MARVEL",
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 15,
+                                  fontFamily: 'Roboto-Black')),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            )
           ],
         )),
       ),

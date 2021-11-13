@@ -63,6 +63,9 @@ flutter:
       - family: Roboto-Black
         fonts:
           - asset: assets/fonts/Roboto-Black.ttf
+      - family: ComicNeue-Bold
+        fonts:
+          - asset: assets/fonts/ComicNeue-Bold.ttf
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
