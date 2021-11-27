@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
+import 'components/export.dart' as Components;
 
 class HomePage extends StatefulWidget {
   @override
@@ -160,7 +161,8 @@ class _HomeState extends State<HomePage> {
                   ),
                 ],
               ),
-            )
+            ),
+            Components.HQList()
           ],
         )),
       ),
