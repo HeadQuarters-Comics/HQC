@@ -14,7 +14,7 @@ class _LoginState extends State<LoginPage> {
   String password = '';
 
   login() async {
-    var url = Uri.parse('http://ip:5000/api/login');
+    var url = Uri.parse('http://192.168.88.253:5000/api/login');
     print(username);
     var response = await http.post(url,
         headers: <String, String>{

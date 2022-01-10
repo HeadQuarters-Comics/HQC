@@ -16,7 +16,7 @@ class _SignUpState extends State<SignUpPage> {
   String confirmPass = '';
 
   createUser() async {
-    var url = Uri.parse('http://ip:5000/api/register');
+    var url = Uri.parse('http://192.168.88.253:5000/api/register');
     print(username);
     if (password == confirmPass) {
       var response = await http.post(url,
