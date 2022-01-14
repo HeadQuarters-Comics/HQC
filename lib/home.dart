@@ -50,49 +50,8 @@ class _HomeState extends State<HomePage> {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 10, bottom: 30),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 10),
-                      child: Column(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.30),
-                                spreadRadius: 0,
-                                blurRadius: 10,
-                                offset:
-                                    Offset(-3, 4), // changes position of shadow
-                              ),
-                            ]),
-                            width: 170,
-                            height: 255,
-                            child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10.0),
-                                child: Image.network(
-                                  'https://cdn.discordapp.com/attachments/903283287009685507/908852482149613568/Spdr2.JPG',
-                                  fit: BoxFit.fill,
-                                )),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8),
-                            child: Text("HQ de teste VOL. 45",
-                                style: TextStyle(
-                                    color: Colors.black.withOpacity(0.5),
-                                    fontSize: 17,
-                                    fontFamily: 'ComicNeue-Bold')),
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+                padding: const EdgeInsets.only(left: 10, bottom: 30),
+                child: Components.HQRow()),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

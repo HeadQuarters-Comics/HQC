@@ -3,18 +3,18 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 
-class HQList extends StatefulWidget {
+class HQRow extends StatefulWidget {
   @override
-  _HQListState createState() => _HQListState();
+  _HQRowState createState() => _HQRowState();
 }
 
-class _HQListState extends State<HQList> {
+class _HQRowState extends State<HQRow> {
   List? data;
   List? hqsData;
 
-  getHQs() async {
+  getReleases() async {
     http.Response response =
-        await http.get(Uri.parse('http://hqs-api:4000/api/hqs/'));
+        await http.get(Uri.parse('http://hqs-api:4000/api/hqs/releases'));
     debugPrint(response.body);
     data = json.decode(response.body);
     setState(() {
@@ -28,7 +28,7 @@ class _HQListState extends State<HQList> {
     for (var hqs in hqsData!) {
       print(hqs);
       list.add(Padding(
-        padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+        padding: const EdgeInsets.only(right: 10),
         child: Column(
           children: [
             Container(
@@ -36,7 +36,7 @@ class _HQListState extends State<HQList> {
                 BoxShadow(
                   color: Colors.black.withOpacity(0.30),
                   spreadRadius: 0,
-                  blurRadius: 5,
+                  blurRadius: 10,
                   offset: Offset(-3, 4), // changes position of shadow
                 ),
               ]),
@@ -67,7 +67,7 @@ class _HQListState extends State<HQList> {
   @override
   void initState() {
     super.initState();
-    getHQs();
+    getReleases();
   }
 
   @override
@@ -75,13 +75,8 @@ class _HQListState extends State<HQList> {
     //final mediaQuery = MediaQuery.of(context);
 
     return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 10, top: 20),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: rendererHQ(),
-        ),
-      ),
+      scrollDirection: Axis.horizontal,
+      child: rendererHQ(),
     );
   }
 }
