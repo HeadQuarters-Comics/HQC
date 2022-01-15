@@ -13,6 +13,8 @@ class _HomeState extends State<HomePage> {
   List? data;
   List? publishersData;
 
+  String selected = '';
+
   getPublishers() async {
     http.Response response =
         await http.get(Uri.parse('http://hqs-api:4000/api/hqs/publishers'));
@@ -20,6 +22,9 @@ class _HomeState extends State<HomePage> {
     data = json.decode(response.body);
     setState(() {
       publishersData = data!;
+      selected = publishersData != null
+          ? publishersData![0]['publisher']
+          : 'DC COMICS';
     });
     //rendererPublishers();
   }
@@ -27,7 +32,8 @@ class _HomeState extends State<HomePage> {
   rendererPublishers() {
     List<Widget> list = [];
     for (var publisher in publishersData!) {
-      print(publisher);
+      //print(publisher);
+      //print(selected);
       list.add(Padding(
         padding: const EdgeInsets.only(right: 10),
         child: Column(
@@ -35,10 +41,16 @@ class _HomeState extends State<HomePage> {
             Container(
               decoration: BoxDecoration(
                   border: Border(
-                      bottom: BorderSide(color: Colors.black, width: 1))),
+                      bottom: BorderSide(
+                          color: publisher?['publisher'] == selected
+                              ? Colors.black
+                              : Colors.white,
+                          width: 1))),
               child: Text("${publisher?['publisher']}",
                   style: TextStyle(
-                      color: Colors.black,
+                      color: publisher?['publisher'] == selected
+                          ? Colors.black
+                          : Colors.grey,
                       fontSize: 15,
                       fontFamily: 'Roboto-Black')),
             ),
@@ -125,27 +137,8 @@ class _HomeState extends State<HomePage> {
             ),
             Padding(
                 padding: const EdgeInsets.only(top: 10, left: 15),
-                child: rendererPublishers()
-//                  Padding(
-//                    padding: const EdgeInsets.only(right: 10),
-//                    child: Column(
-//                      children: [
-//                        Container(
-//                          decoration: BoxDecoration(
-//                              border: Border(
-//                                  bottom: BorderSide(
-//                                      color: Colors.white, width: 1))),
-//                          child: Text("MARVEL",
-//                              style: TextStyle(
-//                                  color: Colors.grey,
-//                                  fontSize: 15,
-//                                  fontFamily: 'Roboto-Black')),
-//                        ),
-//                      ],
-//                    ),
-//                  ),
-                ),
-            Components.HQList()
+                child: rendererPublishers()),
+            Components.HQList(selected)
           ],
         )),
       ),

@@ -4,6 +4,9 @@ import 'dart:async';
 import 'dart:convert';
 
 class HQList extends StatefulWidget {
+  final String selected;
+  HQList(this.selected);
+
   @override
   _HQListState createState() => _HQListState();
 }
@@ -13,12 +16,12 @@ class _HQListState extends State<HQList> {
   List? hqsData;
 
   getHQs() async {
-    http.Response response =
-        await http.get(Uri.parse('http://hqs-api:4000/api/hqs/'));
+    http.Response response = await http
+        .get(Uri.parse('http://hqs-api:4000/api/hqs/${widget.selected}'));
     debugPrint(response.body);
     data = json.decode(response.body);
     setState(() {
-      hqsData = data!; //['users'];
+      hqsData = data!;
     });
     rendererHQ();
   }
@@ -27,6 +30,7 @@ class _HQListState extends State<HQList> {
     List<Widget> list = [];
     for (var hqs in hqsData!) {
       //print(hqs);
+      print(widget.selected);
       list.add(Padding(
         padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
         child: Column(
