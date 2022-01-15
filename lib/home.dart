@@ -10,6 +10,51 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomeState extends State<HomePage> {
+  List? data;
+  List? publishersData;
+
+  getPublishers() async {
+    http.Response response =
+        await http.get(Uri.parse('http://hqs-api:4000/api/hqs/publishers'));
+    debugPrint(response.body);
+    data = json.decode(response.body);
+    setState(() {
+      publishersData = data!;
+    });
+    //rendererPublishers();
+  }
+
+  rendererPublishers() {
+    List<Widget> list = [];
+    for (var publisher in publishersData!) {
+      print(publisher);
+      list.add(Padding(
+        padding: const EdgeInsets.only(right: 10),
+        child: Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                  border: Border(
+                      bottom: BorderSide(color: Colors.black, width: 1))),
+              child: Text("${publisher?['publisher']}",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 15,
+                      fontFamily: 'Roboto-Black')),
+            ),
+          ],
+        ),
+      ));
+    }
+    return new Row(children: list);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getPublishers();
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -79,48 +124,27 @@ class _HomeState extends State<HomePage> {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 10, left: 15),
-              child: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: Column(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              border: Border(
-                                  bottom: BorderSide(
-                                      color: Colors.black, width: 1))),
-                          child: Text("DC COMICS",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 15,
-                                  fontFamily: 'Roboto-Black')),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: Column(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              border: Border(
-                                  bottom: BorderSide(
-                                      color: Colors.white, width: 1))),
-                          child: Text("MARVEL",
-                              style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 15,
-                                  fontFamily: 'Roboto-Black')),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+                padding: const EdgeInsets.only(top: 10, left: 15),
+                child: rendererPublishers()
+//                  Padding(
+//                    padding: const EdgeInsets.only(right: 10),
+//                    child: Column(
+//                      children: [
+//                        Container(
+//                          decoration: BoxDecoration(
+//                              border: Border(
+//                                  bottom: BorderSide(
+//                                      color: Colors.white, width: 1))),
+//                          child: Text("MARVEL",
+//                              style: TextStyle(
+//                                  color: Colors.grey,
+//                                  fontSize: 15,
+//                                  fontFamily: 'Roboto-Black')),
+//                        ),
+//                      ],
+//                    ),
+//                  ),
+                ),
             Components.HQList()
           ],
         )),

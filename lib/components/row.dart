@@ -26,7 +26,7 @@ class _HQRowState extends State<HQRow> {
   rendererHQ() {
     List<Widget> list = [];
     for (var hqs in hqsData!) {
-      print(hqs);
+      //print(hqs);
       list.add(Padding(
         padding: const EdgeInsets.only(right: 10),
         child: Column(
