@@ -18,14 +18,14 @@ class _HQRowState extends State<HQRow> {
     debugPrint(response.body);
     data = json.decode(response.body);
     setState(() {
-      hqsData = data!; //['users'];
+      hqsData = data ?? []; //['users'];
     });
     rendererHQ();
   }
 
   rendererHQ() {
     List<Widget> list = [];
-    for (var hqs in hqsData!) {
+    for (var hqs in hqsData ?? []) {
       //print(hqs);
       list.add(Padding(
         padding: const EdgeInsets.only(right: 10),

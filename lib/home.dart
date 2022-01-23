@@ -21,7 +21,7 @@ class _HomeState extends State<HomePage> {
     debugPrint(response.body);
     data = json.decode(response.body);
     setState(() {
-      publishersData = data!;
+      publishersData = data ?? [];
       selected = publishersData != null
           ? publishersData![0]['publisher']
           : 'DC COMICS';
@@ -31,28 +31,35 @@ class _HomeState extends State<HomePage> {
 
   rendererPublishers() {
     List<Widget> list = [];
-    for (var publisher in publishersData!) {
+    for (var publisher in publishersData ?? []) {
       //print(publisher);
       //print(selected);
       list.add(Padding(
         padding: const EdgeInsets.only(right: 10),
         child: Column(
           children: [
-            Container(
-              decoration: BoxDecoration(
-                  border: Border(
-                      bottom: BorderSide(
-                          color: publisher?['publisher'] == selected
-                              ? Colors.black
-                              : Colors.white,
-                          width: 1))),
-              child: Text("${publisher?['publisher']}",
-                  style: TextStyle(
-                      color: publisher?['publisher'] == selected
-                          ? Colors.black
-                          : Colors.grey,
-                      fontSize: 15,
-                      fontFamily: 'Roboto-Black')),
+            InkWell(
+              onTap: () {
+                setState(() {
+                  selected = publisher?['publisher'];
+                });
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                    border: Border(
+                        bottom: BorderSide(
+                            color: publisher?['publisher'] == selected
+                                ? Colors.black
+                                : Colors.white,
+                            width: 1))),
+                child: Text("${publisher?['publisher']}",
+                    style: TextStyle(
+                        color: publisher?['publisher'] == selected
+                            ? Colors.black
+                            : Colors.grey,
+                        fontSize: 15,
+                        fontFamily: 'Roboto-Black')),
+              ),
             ),
           ],
         ),

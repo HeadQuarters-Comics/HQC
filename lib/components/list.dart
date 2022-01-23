@@ -21,7 +21,7 @@ class _HQListState extends State<HQList> {
     debugPrint(response.body);
     data = json.decode(response.body);
     setState(() {
-      hqsData = data!;
+      hqsData = data ?? [];
     });
     rendererHQ();
   }
@@ -31,7 +31,7 @@ class _HQListState extends State<HQList> {
     if (hqsData?[0]['publisher'] != widget.selected) {
       getHQs();
     } else {
-      for (var hqs in hqsData!) {
+      for (var hqs in hqsData ?? []) {
         //print(hqs);
         print(widget.selected);
         list.add(Padding(
