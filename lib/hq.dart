@@ -5,6 +5,8 @@ import 'dart:convert';
 import 'components/export.dart' as Components;
 
 class HQPage extends StatefulWidget {
+  final Object hq;
+  HQPage(this.hq);
   @override
   _HQState createState() => _HQState();
 }
@@ -13,63 +15,12 @@ class _HQState extends State<HQPage> {
   List? data;
   List? publishersData;
 
-  //getEditions() async {
-  //  http.Response response = await http
-  //      .get(Uri.parse('http://192.168.43.93:4000/api/hqs/'));
-  //  debugPrint(response.body);
-  //  data = json.decode(response.body);
-  //  setState(() {
-  //    publishersData = data ?? [];
-  //    selected = publishersData != null
-  //        ? publishersData![0]['publisher']
-  //        : 'DC COMICS';
-  //  });
-  //  //rendererPublishers();
-  //}
-
-  //rendererEditions() {
-  //  List<Widget> list = [];
-  //  for (var publisher in publishersData ?? []) {
-  //    //print(publisher);
-  //    //print(selected);
-  //    list.add(Padding(
-  //      padding: const EdgeInsets.only(right: 10),
-  //      child: Column(
-  //        children: [
-  //          InkWell(
-  //            onTap: () {
-  //              setState(() {
-  //                selected = publisher?['publisher'];
-  //              });
-  //            },
-  //            child: Container(
-  //              decoration: BoxDecoration(
-  //                  border: Border(
-  //                      bottom: BorderSide(
-  //                          color: publisher?['publisher'] == selected
-  //                              ? Colors.black
-  //                              : Colors.white,
-  //                          width: 1))),
-  //              child: Text("${publisher?['publisher']}",
-  //                  style: TextStyle(
-  //                      color: publisher?['publisher'] == selected
-  //                          ? Colors.black
-  //                          : Colors.grey,
-  //                      fontSize: 15,
-  //                      fontFamily: 'Roboto-Black')),
-  //            ),
-  //          ),
-  //        ],
-  //      ),
-  //    ));
-  //  }
-  //  return new Row(children: list);
-  //}
+  get hq => widget.hq;
 
   @override
   void initState() {
     super.initState();
-    //getEditions();
+    print(widget.hq);
   }
 
   @override
@@ -78,7 +29,6 @@ class _HQState extends State<HQPage> {
 
     return Scaffold(
         appBar: AppBar(
-          //title: Text('A THOR'),
           backgroundColor: Colors.transparent,
           elevation: 0,
         ),
@@ -107,8 +57,7 @@ class _HQState extends State<HQPage> {
                           alignment: Alignment.center,
                           widthFactor: 0.9,
                           heightFactor: 0.6,
-                          child: Image.network(
-                              'https://media.discordapp.net/attachments/909080456316735498/931334317618110484/unknown.png?width=439&height=676'),
+                          child: Image.network('${hq['image']}'),
                         ),
                       ),
                     ),
@@ -118,7 +67,7 @@ class _HQState extends State<HQPage> {
               padding: const EdgeInsets.symmetric(vertical: 25),
               child: Column(
                 children: [
-                  Text('HERÓIS EM CRISE',
+                  Text('${hq['name']}',
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: 20,
@@ -129,7 +78,7 @@ class _HQState extends State<HQPage> {
                       Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                        child: Text('Lançamento: 2016',
+                        child: Text('Lançamento: ${hq['release']}',
                             style: TextStyle(
                                 color: Colors.black.withOpacity(0.5),
                                 fontSize: 16,
@@ -138,16 +87,25 @@ class _HQState extends State<HQPage> {
                       Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                        child: Text('Nota: 5',
-                            style: TextStyle(
-                                color: Colors.black.withOpacity(0.5),
-                                fontSize: 16,
-                                fontFamily: 'ComicNeue-Bold')),
+                        child: Row(
+                          children: [
+                            Text('Nota: ${hq['rating']}',
+                                style: TextStyle(
+                                    color: Colors.black.withOpacity(0.5),
+                                    fontSize: 16,
+                                    fontFamily: 'ComicNeue-Bold')),
+                            Icon(
+                              Icons.star,
+                              color: Colors.black.withOpacity(0.5),
+                              size: 15.0,
+                            ),
+                          ],
+                        ),
                       ),
                       Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                        child: Text('08 edições',
+                        child: Text('${hq['number_edits']} edições',
                             style: TextStyle(
                                 color: Colors.black.withOpacity(0.5),
                                 fontSize: 16,
@@ -164,12 +122,25 @@ class _HQState extends State<HQPage> {
                           onPressed: () {},
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 0),
-                            child: Text("AVALIAR",
-                                style: TextStyle(
+                                vertical: 8, horizontal: 0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 5),
+                                  child: Icon(
+                                    Icons.star_border,
                                     color: Colors.black,
-                                    fontSize: 15,
-                                    fontFamily: 'Roboto-Black')),
+                                    size: 25.0,
+                                  ),
+                                ),
+                                Text("AVALIAR",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 15,
+                                        fontFamily: 'Roboto-Black')),
+                              ],
+                            ),
                           ),
                           style: ElevatedButton.styleFrom(
                               primary: Colors.white,
@@ -184,12 +155,25 @@ class _HQState extends State<HQPage> {
                           onPressed: () {},
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 10),
-                            child: Text("COMPRAR",
-                                style: TextStyle(
+                                vertical: 8, horizontal: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 5),
+                                  child: Icon(
+                                    Icons.shopping_basket_rounded,
                                     color: Colors.white,
-                                    fontSize: 15,
-                                    fontFamily: 'Roboto-Black')),
+                                    size: 25.0,
+                                  ),
+                                ),
+                                Text("COMPRAR",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 15,
+                                        fontFamily: 'Roboto-Black')),
+                              ],
+                            ),
                           ),
                           style: ElevatedButton.styleFrom(
                               primary: Colors.red,
@@ -203,8 +187,7 @@ class _HQState extends State<HQPage> {
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 25, vertical: 15),
-                    child: Text(
-                        'Jane Foster é a Deusa do Trovão, e isso a está matando! Seus inimigos são muitos, à medida que Asgard afunda ainda mais em direção ao caos e a inquietação ameaça se espalhar pelos Dez Reinos. Ainda assim, ela trava sua maior batalha contra um inimigo muito mais pessoal: o câncer que está matando sua forma mortal. Quando Loki voltar, isso aliviará seus problemas ou apenas aumentará sua dor?',
+                    child: Text('${hq['desc']}',
                         style: TextStyle(
                             color: Colors.black.withOpacity(0.5),
                             fontSize: 16,

@@ -35,7 +35,7 @@ class _HQRowState extends State<HQRow> {
             InkWell(
               onTap: () {
                 print(hqs?['id']);
-                Navigator.of(context).push(_createRoute());
+                Navigator.of(context).push(_createRoute(hqs));
               },
               child: Container(
                 decoration: BoxDecoration(boxShadow: [
@@ -88,9 +88,9 @@ class _HQRowState extends State<HQRow> {
   }
 }
 
-Route _createRoute() {
+Route _createRoute(hq) {
   return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) => HQPage(),
+    pageBuilder: (context, animation, secondaryAnimation) => HQPage(hq),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       const begin = Offset(0.0, 1.0);
       const end = Offset.zero;

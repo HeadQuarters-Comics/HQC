@@ -33,7 +33,7 @@ class _HQListState extends State<HQList> {
     } else {
       for (var hqs in hqsData ?? []) {
         //print(hqs);
-        print(widget.selected);
+        //print(widget.selected);
         list.add(Padding(
           padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
           child: Column(
