@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
+import 'package:url_launcher/url_launcher.dart';
 
 class EditionsList extends StatefulWidget {
   final int editions;
@@ -12,6 +13,17 @@ class EditionsList extends StatefulWidget {
 }
 
 class _EditionsListState extends State<EditionsList> {
+  _launchURL() async {
+    const url =
+        'https://drive.google.com/file/d/1CKt3_XED95KZ6GTZwWHgyh1DDi0qFzxM/view?usp=sharing';
+    if (await canLaunch(url)) {
+      await launch(url,
+          forceSafariVC: false, forceWebView: true, enableJavaScript: true);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   rendererHQ() {
     List<Widget> list = [];
     for (var i = 1; i <= widget.editions; i++) {
@@ -20,7 +32,7 @@ class _EditionsListState extends State<EditionsList> {
         child: Column(
           children: [
             ElevatedButton(
-              onPressed: () {},
+              onPressed: _launchURL,
               style: ElevatedButton.styleFrom(
                   primary: Colors.white,
                   shape: RoundedRectangleBorder(
