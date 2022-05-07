@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 import 'components/export.dart' as Components;
+import 'package:url_launcher/url_launcher.dart';
 
 class HQPage extends StatefulWidget {
   final Object hq;
@@ -21,6 +22,16 @@ class _HQState extends State<HQPage> {
   void initState() {
     super.initState();
     print(widget.hq);
+  }
+
+  _launchURL() async {
+    String url = hq['buy'];
+    if (await canLaunch(url)) {
+      await launch(url,
+          forceSafariVC: false, forceWebView: true, enableJavaScript: true);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   @override
@@ -152,7 +163,7 @@ class _HQState extends State<HQPage> {
                       SizedBox(
                         width: 175,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: _launchURL,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                                 vertical: 8, horizontal: 10),
