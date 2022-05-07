@@ -219,6 +219,7 @@ class _HQState extends State<HQPage> {
                       ),
                     ],
                   ),
+                  Components.EditionsList(hq['number_edits'])
                 ],
               ),
             )
